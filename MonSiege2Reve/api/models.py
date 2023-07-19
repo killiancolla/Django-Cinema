@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class User(models.Model):
+class Member(models.Model):
     name = models.CharField(max_length=50)
     firstname = models.CharField(max_length=50)
     email = models.CharField(max_length=150)
@@ -24,7 +24,7 @@ class Session(models.Model):
     flag = models.BooleanField()
 
 class Purchase(models.Model):
-    userId = models.ForeignKey("User", on_delete=models.CASCADE)
+    userId = models.ForeignKey("Member", on_delete=models.CASCADE)
     sessionId = models.ForeignKey("Session", on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.FloatField()
