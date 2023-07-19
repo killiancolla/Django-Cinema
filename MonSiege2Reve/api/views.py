@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class RegisterUser(APIView):
     def post(self, request):
@@ -24,21 +26,46 @@ class LoginUser(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, _ = Token.objects.get_or_create(user=user)
-        return Response({'status':200, 'token': str(token), 'user admin': user.is_staff})
+        print(serializer.validated_data['user'])
+        return Response({'status':200, 'token': str(token),"user":user.is_staff})
+
+class isAuth(APIView):
+    def post(self,request):
+        token = request.data['token']
+        try:
+            token = Token.objects.get(key=token)
+            user = token.user
+            if user :
+                return Response({'user': user},status=status.HTTP_200_OK)
+            else:
+                return Response({'message': 'Accès refusé.'}, status=status.HTTP_403_FORBIDDEN)
+        except token.DoesNotExist :
+            return Response({'message': 'Token invalide.'}, status=status.HTTP_401_UNAUTHORIZED)
+        except User.DoesNotExist :
+            return Response({'message': 'Utilisateur introuvable.'}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 class RoomViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
 class SessionViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
 
 class PurchaseViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
 
 class PriceViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
