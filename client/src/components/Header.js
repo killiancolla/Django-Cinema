@@ -12,7 +12,11 @@ export default function Header() {
         </div>
 
         <div className="page-link">
-          <Link to="/">Accueil</Link>
+          <Link to="/">Séances</Link>
+          <Link to="/cart">Panier</Link>
+          <Link to="/login">Connexion</Link>
+          <Link to="/account">Mon compte</Link>
+          <Link to="http://localhost:8000/admin" target="_blank">Administration</Link>
         </div>
       </div>
     </header>
