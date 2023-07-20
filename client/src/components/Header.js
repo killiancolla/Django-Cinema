@@ -16,9 +16,14 @@ export default function Header() {
   return (
     <header className="header" id="header">
       <nav className="nav container">
-        <Link onClick={closeMenu} to="/" className="nav__logo">Mon Siège de Rêve</Link>
+        <Link onClick={closeMenu} to="/" className="nav__logo">
+          Mon Siège de Rêve
+        </Link>
 
-        <div className={`nav__menu active-link${isMenuOpen ? " show-menu" : ""}`} id="nav-menu">
+        <div
+          className={`nav__menu active-link${isMenuOpen ? " show-menu" : ""}`}
+          id="nav-menu"
+        >
           <ul className="nav__list grid">
             <li className="nav__item">
               <Link onClick={closeMenu} to="/" className="nav__link">
@@ -33,8 +38,8 @@ export default function Header() {
             </li>
 
             <li className="nav__item">
-              <Link onClick={closeMenu} to="/login" className="nav__link">
-                <i class="ri-account-circle-line"></i> Connexion
+              <Link onClick={closeMenu} to="/inscription" className="nav__link">
+                <i class="ri-account-circle-line"></i> Inscription
               </Link>
             </li>
 
@@ -45,7 +50,12 @@ export default function Header() {
             </li>
 
             <li className="nav__item">
-              <Link onClick={closeMenu} to="http://localhost:8000/admin" target="_blank" className="nav__link">
+              <Link
+                onClick={closeMenu}
+                to="http://localhost:8000/admin"
+                target="_blank"
+                className="nav__link"
+              >
                 <i class="ri-settings-2-line"></i> Administration
               </Link>
             </li>
@@ -57,7 +67,6 @@ export default function Header() {
         </div>
 
         <div className="nav__buttons">
-
           <div className="nav__toggle" onClick={toggleMenu}>
             <i className="ri-menu-4-line"></i>
           </div>
