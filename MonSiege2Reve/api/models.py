@@ -19,7 +19,7 @@ class Session(models.Model):
 class Purchase(models.Model):
     userId = models.ForeignKey(User, on_delete=models.CASCADE)
     sessionId = models.ForeignKey("Session", on_delete=models.CASCADE)
-    priceId = models.ForeignKey("Price", on_delete=models.CASCADE)
+    priceId = models.ForeignKey("Price", on_delete=models.CASCADE, null=True)
     timestamp = models.DateTimeField()
 
 class Price(models.Model):

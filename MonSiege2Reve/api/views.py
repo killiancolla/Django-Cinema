@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 
 class RegisterUser(APIView):
     def post(self, request):
@@ -35,7 +36,7 @@ class isAuth(APIView):
         try:
             token = Token.objects.get(key=token)
             user = token.user
-            if user :
+            if user:
                 return Response({'user': user},status=status.HTTP_200_OK)
             else:
                 return Response({'message': 'Accès refusé.'}, status=status.HTTP_403_FORBIDDEN)
@@ -44,28 +45,32 @@ class isAuth(APIView):
         except User.DoesNotExist :
             return Response({'message': 'Utilisateur introuvable.'}, status=status.HTTP_404_NOT_FOUND)
 
-
+class IsGetOrIsAuthenticated(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method == 'GET':
+            return True
+        return request.user and request.user.is_authenticated
 
 class RoomViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsGetOrIsAuthenticated]
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
 class SessionViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsGetOrIsAuthenticated]
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
 
 class PurchaseViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsGetOrIsAuthenticated]
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
 
 class PriceViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsGetOrIsAuthenticated]
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
