@@ -8,11 +8,10 @@ class Room(models.Model):
     flag = models.BooleanField()
 
 class Session(models.Model):
-    name = models.CharField(max_length=50)
+    filmId = models.ForeignKey("Film", on_delete=models.CASCADE, null=True)
     isSpecial = models.BooleanField()
     language = models.CharField(max_length=5)
     timestamp = models.DateTimeField(auto_now_add=True)
-    image = models.URLField()
     roomId = models.ForeignKey("Room", on_delete=models.CASCADE)
     flag = models.BooleanField()
 
@@ -26,4 +25,13 @@ class Price(models.Model):
     name = models.CharField(max_length=50)
     price = models.FloatField()
     isSpecial = models.BooleanField()
+    flag = models.BooleanField()
+
+class Film(models.Model):
+    name = models.CharField(max_length=50)
+    duration = models.IntegerField()
+    image = models.URLField()
+    synopsis = models.CharField(max_length=500)
+    annee = models.IntegerField()
+    realisation = models.CharField(max_length=25)
     flag = models.BooleanField()
