@@ -1,12 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import RegisterUser, LoginUser, isAuth, RoomViewSet, SessionViewSet, PurchaseViewSet, PriceViewSet
+from .views import RegisterUser, LoginUser, isAuth, RoomViewSet, SessionViewSet, PurchaseViewSet, PriceViewSet, MovieViewSet
 
 router = DefaultRouter()
 router.register('rooms', RoomViewSet)
 router.register('sessions', SessionViewSet)
 router.register('purchases', PurchaseViewSet)
 router.register('prices', PriceViewSet)
+router.register('movies', MovieViewSet)
 
 
 urlpatterns = [

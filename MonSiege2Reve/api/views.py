@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Room, Session, Purchase, Price
-from .serializers import UserSerializer, RoomSerializer, SessionSerializer, PurchaseSerializer, PriceSerializer
+from .models import Room, Session, Purchase, Price, Movie
+from .serializers import UserSerializer, RoomSerializer, SessionSerializer, PurchaseSerializer, PriceSerializer, MovieSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework import status
 from rest_framework.response import Response
@@ -74,3 +74,9 @@ class PriceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsGetOrIsAuthenticated]
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
+
+class MovieViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsGetOrIsAuthenticated]
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer

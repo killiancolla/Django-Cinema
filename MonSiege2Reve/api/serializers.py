@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Room, Session, Purchase, Price
+from .models import Room, Session, Purchase, Price, Movie
 from django.contrib.auth.models import User
 
 
@@ -40,4 +40,9 @@ class PurchaseSerializer(serializers.ModelSerializer):
 class PriceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Price
+        fields = "__all__"
+        
+class MovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
         fields = "__all__"
