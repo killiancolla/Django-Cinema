@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
@@ -16,7 +15,7 @@ export default function Seance() {
         setFilm(filmResponse.data);
 
         const seanceResponse = await axios.get(`http://127.0.0.1:8000/sessions/`);
-        const filteredSeances = seanceResponse.data.filter(seance => seance.filmId == id);
+        const filteredSeances = seanceResponse.data.filter(seance => seance.filmId === parseInt(id));
 
         const updatedSeances = await Promise.all(
           filteredSeances.map(async seance => {
@@ -39,7 +38,7 @@ export default function Seance() {
     };
 
     fetchPurchasesData();
-  }, []);
+  }, [id]);
 
   return (
     <div className="section">

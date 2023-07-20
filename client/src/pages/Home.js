@@ -42,7 +42,7 @@ export default function Home() {
                 <Link to={`/seance/${film.id}`}>
                   <div className="info_section">
                     <div className="movie_header">
-                      <img className="locandina" src={film.image} />
+                      <img className="locandina" src={film.image} alt={film.image} />
                       <h1>{film.name}</h1>
                       <h4>{film.year}, {film.realisator}</h4>
                       <span className="minutes">{film.duration} min</span>
