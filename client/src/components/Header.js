@@ -1,4 +1,4 @@
-import '../style/header.css';
+import "../style/header.css";
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -12,7 +12,7 @@ export default function Header() {
         </div>
 
         <div className="page-link">
-          <Link to="/Accueil">Animal List</Link>
+          <Link to="/">Accueil</Link>
         </div>
       </div>
     </header>
