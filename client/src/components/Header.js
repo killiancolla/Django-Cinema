@@ -1,11 +1,12 @@
 import "../style/header.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import 'remixicon/fonts/remixicon.css';
+import { useEffect, useState } from "react";
+import "remixicon/fonts/remixicon.css";
 
-export default function Header() {
+let v;
+export default function Header({ test, setTest }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [role, setRole] = useState();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -13,6 +14,22 @@ export default function Header() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
+  const loagout = () => {
+    localStorage.removeItem("userInfo");
+    setTest(localStorage.getItem("userInfo"));
+  };
+
+  useEffect(() => {
+    if (typeof test === "object" && test !== null) {
+      setRole(test.is_superuser);
+    } else if (typeof test !== "object" && test !== null) {
+      v = JSON.parse(test);
+      setRole(v.is_superuser);
+    } else if (typeof v === "undefined" || typeof v === []) {
+      setRole("");
+    }
+  }, [test]);
 
   return (
     <header className="header" id="header">
@@ -31,35 +48,42 @@ export default function Header() {
                 <i class="ri-coupon-2-line"></i> Séances
               </Link>
             </li>
-
-            <li className="nav__item">
-              <Link onClick={closeMenu} to="/cart" className="nav__link">
-                <i class="ri-shopping-cart-2-line"></i> Panier
-              </Link>
-            </li>
-
-            <li className="nav__item">
-              <Link onClick={closeMenu} to="/inscription" className="nav__link">
-                <i class="ri-account-circle-line"></i> Inscription
-              </Link>
-            </li>
-
-            <li className="nav__item">
-              <Link onClick={closeMenu} to="/account" className="nav__link">
-                <i class="ri-account-circle-line"></i> Mon compte
-              </Link>
-            </li>
-
-            <li className="nav__item">
-              <Link
-                onClick={closeMenu}
-                to="http://localhost:8000/admin"
-                target="_blank"
-                className="nav__link"
-              >
-                <i class="ri-settings-2-line"></i> Administration
-              </Link>
-            </li>
+            {test !== null && (
+              <li className="nav__item">
+                <Link onClick={closeMenu} to="/account" className="nav__link">
+                  <i class="ri-account-circle-line"></i> Mon compte
+                </Link>
+              </li>
+            )}
+            {test !== null && role === true && (
+              <li className="nav__item">
+                <Link
+                  onClick={closeMenu}
+                  to="http://localhost:8000/admin"
+                  target="_blank"
+                  className="nav__link"
+                >
+                  <i class="ri-settings-2-line"></i> Administration
+                </Link>
+              </li>
+            )}
+            {test === null ? (
+              <li className="nav__item">
+                <Link
+                  onClick={closeMenu}
+                  to="/inscription"
+                  className="nav__link"
+                >
+                  <i class="ri-account-circle-line"></i> Inscription
+                </Link>
+              </li>
+            ) : (
+              <li className="nav__item">
+                <Link onClick={loagout} to="/" className="nav__link">
+                  <i class="ri-account-circle-line"></i> Logout
+                </Link>
+              </li>
+            )}
           </ul>
 
           <div className="nav__close" onClick={toggleMenu}>
