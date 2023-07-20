@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Inscription from "./pages/Inscription";
 import Seance from "./pages/Seance";
 import { userInfo } from "./utils";
+import Profile from "./pages/Profile";
 
 export default function App() {
   const [test, setTest] = useState(userInfo);
@@ -19,6 +20,7 @@ export default function App() {
             path="/inscription"
             element={<Inscription setTest={setTest} />}
           />
+          <Route path="/account" element={<Profile />} />
           <Route path="/seance/:id" element={<Seance />} />
         </Routes>
       </main>
