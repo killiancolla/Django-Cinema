@@ -10,17 +10,15 @@ import Seance from './pages/Seance';
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="container">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="" element={<Home />} />
-            <Route path="/inscription" element={<Inscription />} />
-            <Route path="/connexion" element={<Connexion />} />
-            <Route path="/seance/:id" element={<Seance />} />
-          </Routes>
-        </main>
-      </div>
+      <Header />
+      <main className="main">
+        <Routes>
+          <Route path="" element={<Home />} />
+          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/connexion" element={<Connexion />} />
+          <Route path="/seance/:id" element={<Seance />} />
+        </Routes>
+      </main>
     </BrowserRouter>
   );
 }
