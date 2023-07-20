@@ -1,9 +1,9 @@
-import "./App.css";
+import "./style/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import Inscription from "./pages/inscription/Inscription";
+import Inscription from "./pages/Inscription";
 import Seance from "./pages/Seance";
 
 export default function App() {
