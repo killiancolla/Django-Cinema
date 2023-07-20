@@ -18,7 +18,7 @@ class RegisterUser(APIView):
             serializer.save()
             user = User.objects.get(username= serializer.data['username'])
             token, _ = Token.objects.get_or_create(user=user)
-            return Response({'status':200,'données': serializer.data, 'token': str(token)})
+            return Response({'status':200,'user': serializer.data, 'token': str(token)})
         return Response({'status': 403, 'errors': serializer.errors})
 
 class LoginUser(ObtainAuthToken):
@@ -28,7 +28,13 @@ class LoginUser(ObtainAuthToken):
         user = serializer.validated_data['user']
         token, _ = Token.objects.get_or_create(user=user)
         print(serializer.validated_data['user'])
-        return Response({'status':200, 'token': str(token),"user":user.is_staff})
+        return Response({'status':200, 'token': str(token),"user":user.is_staff,
+                        "username" : user.username,
+                        "email" : user.email,
+                        "first_name" : user.first_name,
+                        "last_name" : user.last_name,
+                        "id" : user.id,
+                        "is_superuser" : user.is_superuser})
 
 class isAuth(APIView):
     def post(self,request):
@@ -36,6 +42,7 @@ class isAuth(APIView):
         try:
             token = Token.objects.get(key=token)
             user = token.user
+            print(user)
             if user:
                 return Response({'user': user},status=status.HTTP_200_OK)
             else:

@@ -22,6 +22,19 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+class UserLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+    
+    def get(self, validated_data):
+        user = User.objects.get(
+            username=validated_data['username'],
+            password=validated_data['password']
+        )
+        return user
+
+
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
