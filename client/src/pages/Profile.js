@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../style/profile.css";
 import Modal from "react-modal";
-import QRCodeModal from '../components/QRCodeModal';
+import QRCodeModal from "../components/QRCodeModal";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 export default function Profile({ setTest }) {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ export default function Profile({ setTest }) {
   const closeModal = () => {
     setSelectedPurchase(null);
     setModalIsOpen(false);
-  }
+  };
 
   const deleteAccount = async () => {
     try {
@@ -117,9 +117,7 @@ export default function Profile({ setTest }) {
         <div className="right-side">
           <div className="nave">
             <ul>
-              <li className="user-review active">
-                Historique de vos achats
-              </li>
+              <li className="user-review active">Historique de vos achats</li>
             </ul>
           </div>
           <div className="profile-body">
@@ -134,14 +132,32 @@ export default function Profile({ setTest }) {
                     <th>Voir le QR Code</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {purchaseResume.map((purchase, index) => (
                     <tr key={purchase.resume.purchaseId}>
                       <td>{purchase.resume.movieName}</td>
                       <td>{purchase.resume.price.toFixed(2)} €</td>
                       <td>{purchase.resume.priceType}</td>
-                      <td>{purchase.resume.date}</td>
-                      <td id={purchase.resume.purchaseId} onClick={openModal}><i id={purchase.resume.purchaseId} className="ri-qr-code-line"></i></td>
+                      <td>
+                        {new Date(purchase.resume.date).toLocaleString(
+                          "fr-FR",
+                          {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          }
+                        )}
+                      </td>
+
+                      <td id={purchase.resume.purchaseId} onClick={openModal}>
+                        <i
+                          id={purchase.resume.purchaseId}
+                          className="ri-qr-code-line"
+                        ></i>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -149,8 +165,8 @@ export default function Profile({ setTest }) {
               <Modal
                 style={{
                   overlay: {
-                    zIndex: 101
-                  }
+                    zIndex: 101,
+                  },
                 }}
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
@@ -164,4 +180,4 @@ export default function Profile({ setTest }) {
       </div>
     </div>
   );
-};
+}
