@@ -52,7 +52,7 @@ export default function Seance() {
             const purchasesResponse = await axios.get(`http://127.0.0.1:8000/purchases/`);
             const purchases = purchasesResponse.data;
             const totalPurchased = purchases.reduce((total, purchase) => {
-              return purchase.sessionId === seance.id ? total + purchase.quantity : total;
+              return purchase.sessionId === seance.id ? total + 1 : total;
             }, 0);
             const placesLeft = roomResponse.data.nbPlaces - totalPurchased;
             const room_name = roomResponse.data.name;
