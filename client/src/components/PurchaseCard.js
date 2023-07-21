@@ -10,6 +10,10 @@ export default function PurchaseCard({ data, closeModal }) {
   const [placeData, setPlaceData] = useState([]);
 
   useEffect(() => {
+    if (data === null || data === NaN) {
+      return;
+    }
+
     const fetchTarifData = async () => {
       try {
         const tarifResponse = await axios.get("http://127.0.0.1:8000/prices");
