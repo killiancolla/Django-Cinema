@@ -34,6 +34,7 @@ export default function Inscription({ setTest }) {
           is_superuser: data.data.user.is_superuser,
         };
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        setTest(localStorage.getItem("userInfo"));
         navigate(redirect || "/");
       }
     } catch (error) {
