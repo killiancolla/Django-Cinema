@@ -7,16 +7,12 @@ import PurchaseCard from "../components/PurchaseCard";
 
 Modal.setAppElement('#root')
 
-// Film name, room name, timestamp 
-
 export default function Seance() {
   const { id } = useParams();
   const [seances, setSeances] = useState([]);
   const [film, setFilm] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSeance, setSelectedSeance] = useState(null);
-  const [nbPlace, setNbPlace] = useState(1)
-  const [places, setPlaces] = useState([])
   const [prices, setPrices] = useState([])
 
   const openModal = (seance) => {

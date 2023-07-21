@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../style/purchasecard.css";
+import { useNavigate } from "react-router-dom";
 
 export default function PurchaseCard({ data, closeModal }) {
+  const navigate = useNavigate();
   const [tarifs, setTarifs] = useState([]);
   const [film, setFilm] = useState({});
   const [placeSelected, setPlaceSelected] = useState(0);
@@ -94,6 +96,7 @@ export default function PurchaseCard({ data, closeModal }) {
           })
           .then(res => {
             console.log(res.data);
+            navigate('/')
           });
       }
     })
