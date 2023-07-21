@@ -33,7 +33,7 @@ export default function PurchaseCard(data) {
     const targetTarif = e.target.id.slice(10);
 
     // TODO: Vérification par rapport au nombre de place maximal
-    if (placeSelected === 9) {
+    if (placeSelected === film.placesLeft) {
       return;
     }
 
@@ -65,15 +65,21 @@ export default function PurchaseCard(data) {
   };
 
   const handleConfirm = (e) => {
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(userInfo);
     Object.entries(placeData).map(([key, value]) => {
       for (let index = 0; index < value; index++) {
         const purchase = {
-          userId: 3,
+          userId: userInfo.id,
           sessionId: film.id,
           priceId: key
         };
 
-        axios.post('http://127.0.0.1:8000/purchases/', purchase)
+        axios.post('http://127.0.0.1:8000/purchases/', purchase, {
+          headers: {
+            Authorization: `token ${userInfo.token}`,
+          },
+        })
           .then(res => {
             console.log(res.data);
           });
