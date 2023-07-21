@@ -44,7 +44,10 @@ export default function Seance() {
         setPrices(pricesResponse.data);
 
         const seanceResponse = await axios.get(`http://127.0.0.1:8000/sessions/`);
-        const filteredSeances = seanceResponse.data.filter(seance => seance.filmId === parseInt(id));
+        const now = new Date().toISOString();
+        const filteredSeances = seanceResponse.data.filter(seance => {
+          return seance.filmId === parseInt(id) && seance.timestamp > now;
+        });
 
         const updatedSeances = await Promise.all(
           filteredSeances.map(async seance => {
@@ -60,7 +63,13 @@ export default function Seance() {
           })
         );
 
-        setSeances(updatedSeances);
+        const dateAscending = [...updatedSeances].sort((a, b) => {
+          const dateA = new Date(a.timestamp);
+          const dateB = new Date(b.timestamp);
+          return dateA - dateB;
+        });
+
+        setSeances(dateAscending);
 
       } catch (error) {
         console.error('Failed to fetch purchases data:', error);

@@ -15,7 +15,8 @@ export default function Home() {
         return axios.get('http://127.0.0.1:8000/sessions/');
       })
       .then(response => {
-        const sessionCounts = response.data.reduce((counts, seance) => {
+        const now = new Date().toISOString();
+        const sessionCounts = response.data.filter(session => session.timestamp > now).reduce((counts, seance) => {
           counts[seance.filmId] = (counts[seance.filmId] || 0) + 1;
           return counts;
         }, {});
