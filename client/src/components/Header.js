@@ -44,20 +44,20 @@ export default function Header({ test, setTest }) {
         >
           <ul className="nav__list grid">
             <li className="nav__item">
-              <NavLink activeClassName="active-link" onClick={closeMenu} to="/" className="nav__link">
+              <NavLink onClick={closeMenu} to="/" className={({ isActive }) => (isActive ? "nav__link active-link" : "nav__link")}>
                 <i className="ri-coupon-2-line"></i> Séances
               </NavLink>
             </li>
             {test !== null && (
               <li className="nav__item">
-                <NavLink activeClassName="active-link" onClick={closeMenu} to="/account" className="nav__link">
+                <NavLink onClick={closeMenu} to="/account" className={({ isActive }) => (isActive ? "nav__link active-link" : "nav__link")}>
                   <i className="ri-account-circle-line"></i> Mon compte
                 </NavLink>
               </li>
             )}
             {test !== null && role === true && (
               <li className="nav__item">
-                <NavLink activeClassName="active-link"
+                <NavLink
                   onClick={closeMenu}
                   to="http://localhost:8000/admin"
                   target="_blank"
@@ -69,10 +69,10 @@ export default function Header({ test, setTest }) {
             )}
             {test === null ? (
               <li className="nav__item">
-                <NavLink activeClassName="active-link"
+                <NavLink
                   onClick={closeMenu}
                   to="/inscription"
-                  className="nav__link"
+                  className={({ isActive }) => (isActive ? "nav__link active-link" : "nav__link")}
                 >
                   <i className="ri-account-circle-line"></i> Inscription
                 </NavLink>
