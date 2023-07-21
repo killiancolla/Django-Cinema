@@ -13,7 +13,6 @@ export default function Seance() {
   const [film, setFilm] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSeance, setSelectedSeance] = useState(null);
-  const [prices, setPrices] = useState([])
 
   const openModal = (seance) => {
     setSelectedSeance(seance);
@@ -35,9 +34,6 @@ export default function Seance() {
       try {
         const filmResponse = await axios.get(`http://127.0.0.1:8000/movies/${id}`);
         setFilm(filmResponse.data);
-
-        const pricesResponse = await axios.get(`http://127.0.0.1:8000/prices/`);
-        setPrices(pricesResponse.data);
 
         const seanceResponse = await axios.get(`http://127.0.0.1:8000/sessions/`);
         const now = new Date().toISOString();

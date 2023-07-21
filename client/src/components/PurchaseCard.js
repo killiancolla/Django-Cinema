@@ -12,7 +12,7 @@ export default function PurchaseCard({ data, closeModal }) {
   const [placeData, setPlaceData] = useState([]);
 
   useEffect(() => {
-    if (data === null || data === NaN) {
+    if (data === null || data.isNaN()) {
       return;
     }
 
@@ -89,7 +89,7 @@ export default function PurchaseCard({ data, closeModal }) {
               purchase_id: res.data.id,
               session_name: film.filmname,
               room_name: film.room_name,
-              ticket_type: tarifs.filter(tarif => tarif.id == key)[0].name,
+              ticket_type: tarifs.filter(tarif => tarif.id === parseInt(key))[0].name,
               timestamp: res.data.timestamp
             }
             return axios.post('http://127.0.0.1:8000/qrcodeapp/generate_qr_code', qrcode);
