@@ -21,7 +21,7 @@ def generate_qr_code(request):
             qr_code_image = generate_qr_code_image(qr_code_data, purchase_id)
 
             # Enregistre le QR Code avec l'ID de l'achat comme nom
-            if os.path.exists("../client/public/media") :
+            if os.path.exists("../client/public/media") == False :
                 os.makedirs("../client/public/media")
 
             qr_code_filename = f"{purchase_id}.png"
