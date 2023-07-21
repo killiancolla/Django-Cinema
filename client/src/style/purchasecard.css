@@ -1,4 +1,18 @@
+.ReactModal__Content.ReactModal__Content--after-open {
+  height: 18.5rem;
+  width: 71%;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}
+
 .purchase-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
   display: block;
   background: #fff;
   border: 1px solid #044c67;
@@ -106,4 +120,38 @@
   margin: 0;
   text-align: center;
   text-align-last: end;
+}
+
+.purchase-card-button {
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.close-button {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.confirm-button {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 1rem;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 }

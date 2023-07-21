@@ -102,8 +102,7 @@ export default function Seance() {
               onRequestClose={closeModal}
               contentLabel="Modal de réservation"
             >
-              <PurchaseCard data={selectedSeance} />
-              <button onClick={closeModal}>Fermer</button>
+              <PurchaseCard data={selectedSeance} closeModal={closeModal} />
             </Modal>
           </>
         ) : (

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../style/purchasecard.css";
 
-export default function PurchaseCard(data) {
+export default function PurchaseCard({ data, closeModal }) {
   const [tarifs, setTarifs] = useState([]);
   const [film, setFilm] = useState({});
   const [placeSelected, setPlaceSelected] = useState(0);
@@ -13,14 +13,14 @@ export default function PurchaseCard(data) {
     const fetchTarifData = async () => {
       try {
         const tarifResponse = await axios.get("http://127.0.0.1:8000/prices");
-        setTarifs(tarifResponse.data.filter(tarif => tarif.isSpecial == data.data.isSpecial));
+        setTarifs(tarifResponse.data.filter(tarif => tarif.isSpecial === data.isSpecial));
       } catch (error) {
         console.error("Failed to fetch tarif data:", error);
       }
     }
 
     fetchTarifData();
-    setFilm(data.data);
+    setFilm(data);
   }, [data]);
 
   useEffect(() => {
@@ -32,7 +32,6 @@ export default function PurchaseCard(data) {
   const addPlaces = (e) => {
     const targetTarif = e.target.id.slice(10);
 
-    // TODO: Vérification par rapport au nombre de place maximal
     if (placeSelected === film.placesLeft) {
       return;
     }
@@ -119,7 +118,11 @@ export default function PurchaseCard(data) {
           </div>
         ))}
       </div>
-      <button onClick={handleConfirm}>Confirmer</button>
+
+      <div className="purchase-card-button">
+        <button className="close-button" onClick={closeModal}>Fermer</button>
+        <button className="confirm-button" onClick={handleConfirm}>Confirmer</button>
+      </div>
     </div>
   );
 };

@@ -1,18 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Bree+Serif&display=swap");
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
+body:has(.account-body) {
   background: #e9e9e9;
   overflow-x: hidden;
   padding-top: 90px;
-  font-family: "Poppins", sans-serif;
   margin: 0 100px;
+}
+
+.accout-body {
+  font-family: "Poppins", sans-serif;
 }
 
 .profile-header {
@@ -68,59 +65,6 @@ body {
   margin-right: 5px;
 }
 
-.profile-option {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  right: 50px;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.5s ease-in-out;
-  outline: none;
-  background: #e40046;
-}
-
-.profile-option:hover {
-  background: #fff;
-  border: 1px solid #e40046;
-}
-.profile-option:hover .notification i {
-  color: #e40046;
-}
-
-.profile-option:hover span {
-  background: #e40046;
-}
-
-.profile-option .notification i {
-  color: #fff;
-  font-size: 1.2rem;
-  transition: all 0.5s ease-in-out;
-}
-
-.profile-option .notification .alert-message {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: #fff;
-  color: #e40046;
-  border: 1px solid #e40046;
-  padding: 5px;
-  border-radius: 50%;
-  height: 20px;
-  width: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
 .main-bd {
   width: 100%;
   display: flex;
@@ -148,68 +92,6 @@ body {
   margin-right: 10px;
 }
 
-.mobile-no i {
-  transform: rotateY(180deg);
-  color: #e40046;
-}
-
-.profile-btn {
-  display: flex;
-}
-
-button.chatbtn,
-button.createbtn {
-  border: 0;
-  padding: 10px;
-  width: 100%;
-  border-radius: 3px;
-  background: #e40046;
-  color: #fff;
-  font-family: "Bree Serif";
-  font-size: 1rem;
-  margin: 5px 2px;
-  cursor: pointer;
-  outline: none;
-  margin-bottom: 10px;
-  transition: background 0.3s ease-in-out;
-  box-shadow: 0px 5px 7px 0px rgba(0, 0, 0, 0.3);
-}
-
-button.chatbtn:hover,
-button.createbtn:hover {
-  background: rgba(288, 0, 70, 0.9);
-}
-
-button.chatbtn i,
-button.createbtn i {
-  margin-right: 5px;
-}
-
-.user-rating {
-  display: flex;
-}
-
-.user-rating h3 {
-  font-size: 2.5rem;
-  font-weight: 200;
-  margin-right: 5px;
-  letter-spacing: 1px;
-  color: #666;
-}
-
-.user-rating .no-of-user-rate {
-  font-size: 0.9rem;
-}
-
-.rate {
-  padding-top: 6px;
-}
-
-.rate i {
-  font-size: 0.9rem;
-  color: rgba(228, 0, 70, 1);
-}
-
 .nave {
   width: 100%;
   z-index: -1;
@@ -230,11 +112,10 @@ button.createbtn i {
   cursor: pointer;
   text-align: center;
   transition: all 0.2s ease-in-out;
-}
 
-.nave ul li:hover,
-.nave ul li.active {
-  box-shadow: 0px -3px 0px rgba(288, 0, 70, 0.9) inset;
+  &:hover, &.active {
+    box-shadow: 0px -3px 0px rgba(288, 0, 70, 0.9) inset;
+  }
 }
 
 .profile-body {
@@ -244,12 +125,16 @@ button.createbtn i {
 
 .tab {
   display: none;
-}
-
-.tab {
   padding: 20px;
   width: 100%;
   text-align: center;
+}
+
+.tab h1 {
+  font-family: "Bree Serif", sans-serif;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
 }
 
 @media (max-width: 1100px) {
@@ -267,7 +152,7 @@ button.createbtn i {
 }
 
 @media (max-width: 900px) {
-  body {
+  body:has(.account-body) {
     margin: 0 20px;
   }
 
@@ -296,12 +181,6 @@ button.createbtn i {
     text-align: center;
   }
 
-  .profile-option {
-    right: 20px;
-    top: 75%;
-    transform: translateY(50%);
-  }
-
   .main-bd {
     flex-direction: column;
     padding-right: 0;
@@ -317,21 +196,4 @@ button.createbtn i {
   .profile-nav-info .address {
     justify-content: center;
   }
-
-  .user-rating {
-    justify-content: center;
-  }
-}
-
-#see-more-bio,
-#see-less-bio {
-  color: blue;
-  cursor: pointer;
-  text-transform: lowercase;
-}
-.tab h1 {
-  font-family: "Bree Serif", sans-serif;
-  display: flex;
-  justify-content: center;
-  margin: 20px auto;
 }

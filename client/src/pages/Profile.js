@@ -5,7 +5,7 @@ import $ from "jquery";
 function Profile() {
   const [activeTab, setActiveTab] = useState(0);
 
-  const [user, setUser] = useState(
+  const [user] = useState(
     JSON.parse(localStorage.getItem("userInfo"))
   );
 
@@ -33,7 +33,7 @@ function Profile() {
   });
 
   return (
-    <div>
+    <div className="account-body">
       <div className="profile-header">
         <div className="profile-img">
           <img
