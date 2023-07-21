@@ -157,11 +157,31 @@ body:has(.account-body) {
   text-align: center;
 }
 
-.tab h1 {
-  font-family: "Bree Serif", sans-serif;
-  display: flex;
-  justify-content: center;
-  margin: 20px auto;
+.profile-reviews {
+  background-color: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+td:has(i.ri-qr-code-line) {
+  cursor: pointer;
+  text-align: center;
 }
 
 @media (max-width: 1100px) {
@@ -238,21 +258,4 @@ body:has(.account-body) {
   .profile-nav-info .address {
     justify-content: center;
   }
-}
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
 }
