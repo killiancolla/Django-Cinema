@@ -1,4 +1,4 @@
-.ReactModal__Content.ReactModal__Content--after-open {
+.ReactModal__Content.ReactModal__Content--after-open:has(.purchase-card) {
   height: 18.5rem;
   width: 71%;
   top: 50% !important;

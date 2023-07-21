@@ -11,8 +11,9 @@ export default function PurchaseCard({ data, closeModal }) {
   const [globalPrice, setGlobalPrice] = useState(0);
   const [placeData, setPlaceData] = useState([]);
 
+
   useEffect(() => {
-    if (data === null || data.isNaN()) {
+    if (data === null) {
       return;
     }
 
@@ -95,7 +96,6 @@ export default function PurchaseCard({ data, closeModal }) {
             return axios.post('http://127.0.0.1:8000/qrcodeapp/generate_qr_code', qrcode);
           })
           .then(res => {
-            console.log(res.data);
             navigate('/')
           });
       }
