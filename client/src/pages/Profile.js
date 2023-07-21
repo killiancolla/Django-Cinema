@@ -118,13 +118,12 @@ export default function Profile({ setTest }) {
           <div className="nave">
             <ul>
               <li className="user-review active">
-                Historique
+                Historique de vos achats
               </li>
             </ul>
           </div>
           <div className="profile-body">
             <div className="profile-reviews tab">
-              <h1>Historiques achat</h1>
               <table>
                 <thead>
                   <tr>

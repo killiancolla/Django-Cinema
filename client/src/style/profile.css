@@ -180,7 +180,12 @@ body:has(.account-body) {
 
 @media (max-width: 900px) {
   body:has(.account-body) {
+    padding-top: 1rem;
     margin: 0 20px;
+  }
+
+  .main:has(.account-body) {
+    padding: 0 0 6rem 0;
   }
 
   .profile-header {
