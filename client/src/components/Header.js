@@ -1,5 +1,5 @@
 import "../style/header.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "remixicon/fonts/remixicon.css";
 
@@ -34,9 +34,9 @@ export default function Header({ test, setTest }) {
   return (
     <header className="header" id="header">
       <nav className="nav container">
-        <Link onClick={closeMenu} to="/" className="nav__logo">
+        <NavLink onClick={closeMenu} to="/" className="nav__logo">
           Mon Siège de Rêve
-        </Link>
+        </NavLink>
 
         <div
           className={`nav__menu active-link${isMenuOpen ? " show-menu" : ""}`}
@@ -44,44 +44,44 @@ export default function Header({ test, setTest }) {
         >
           <ul className="nav__list grid">
             <li className="nav__item">
-              <Link onClick={closeMenu} to="/" className="nav__link">
+              <NavLink exact activeClassName="active-link" onClick={closeMenu} to="/" className="nav__link">
                 <i className="ri-coupon-2-line"></i> Séances
-              </Link>
+              </NavLink>
             </li>
             {test !== null && (
               <li className="nav__item">
-                <Link onClick={closeMenu} to="/account" className="nav__link">
+                <NavLink activeClassName="active-link" onClick={closeMenu} to="/account" className="nav__link">
                   <i className="ri-account-circle-line"></i> Mon compte
-                </Link>
+                </NavLink>
               </li>
             )}
             {test !== null && role === true && (
               <li className="nav__item">
-                <Link
+                <NavLink activeClassName="active-link"
                   onClick={closeMenu}
                   to="http://localhost:8000/admin"
                   target="_blank"
                   className="nav__link"
                 >
                   <i className="ri-settings-2-line"></i> Administration
-                </Link>
+                </NavLink>
               </li>
             )}
             {test === null ? (
               <li className="nav__item">
-                <Link
+                <NavLink activeClassName="active-link"
                   onClick={closeMenu}
                   to="/inscription"
                   className="nav__link"
                 >
                   <i className="ri-account-circle-line"></i> Inscription
-                </Link>
+                </NavLink>
               </li>
             ) : (
               <li className="nav__item">
-                <Link onClick={loagout} to="/" className="nav__link">
+                <NavLink activeClassName="active-link" onClick={loagout} to="/" className="nav__link">
                   <i className="ri-account-circle-line"></i> Logout
-                </Link>
+                </NavLink>
               </li>
             )}
           </ul>
