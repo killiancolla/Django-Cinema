@@ -91,7 +91,7 @@ export default function PurchaseCard({ data, closeModal }) {
               session_name: film.filmname,
               room_name: film.room_name,
               ticket_type: tarifs.filter(tarif => tarif.id === parseInt(key))[0].name,
-              timestamp: res.data.timestamp
+              timestamp: new Date(res.data.timestamp).toLocaleString("fr-FR", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
             }
             return axios.post('http://127.0.0.1:8000/qrcodeapp/generate_qr_code', qrcode);
           })
