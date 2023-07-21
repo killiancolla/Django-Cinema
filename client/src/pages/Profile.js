@@ -2,33 +2,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../style/profile.css";
-import $ from "jquery";
+import Modal from "react-modal";
+import QRCodeModal from '../components/QRCodeModal';
 
-function Profile({ setTest }) {
+Modal.setAppElement('#root');
+
+export default function Profile({ setTest }) {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(0);
   const [user] = useState(JSON.parse(localStorage.getItem("userInfo")));
   const [purchaseResume, setPurchaseResume] = useState([]);
-
-  const handleTabClick = (index) => {
-    setActiveTab(index);
-  };
-
-  useEffect(() => {
-    $(".nave ul li").on("click", function () {
-      $(this).addClass("active").siblings().removeClass("active");
-    });
-
-    const tab = document.querySelectorAll(".tab");
-    const tabs = (activeTab) => {
-      tab.forEach(function (node) {
-        node.style.display = "none";
-      });
-      tab[activeTab].style.display = "block";
-    };
-
-    tabs(activeTab);
-  }, [activeTab]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedPurchase, setSelectedPurchase] = useState(null);
 
   useEffect(() => {
     const fetchPurchasesData = async () => {
@@ -69,8 +53,17 @@ function Profile({ setTest }) {
       setPurchaseResume(updatedSeances);
     };
     fetchPurchasesData();
-  }, []);
-  console.log(purchaseResume);
+  }, [user.id]);
+
+  const openModal = (purchase) => {
+    setSelectedPurchase(purchase.target.id);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedPurchase(null);
+    setModalIsOpen(false);
+  }
 
   const deleteAccount = async () => {
     try {
@@ -124,49 +117,52 @@ function Profile({ setTest }) {
         <div className="right-side">
           <div className="nave">
             <ul>
-              <li
-                onClick={() => handleTabClick(0)}
-                className="user-post active"
-              >
-                Qrcode
-              </li>
-              <li onClick={() => handleTabClick(1)} className="user-review">
+              <li className="user-review active">
                 Historique
               </li>
             </ul>
           </div>
           <div className="profile-body">
-            <div className="profile-posts tab">
-              <h1>QRCODE</h1>
-              <p>why not</p>
-            </div>
             <div className="profile-reviews tab">
               <h1>Historiques achat</h1>
-              {/* <Historique /> */}
               <table>
-                <tr>
-                  <th>Films</th>
-                  <th>Prix</th>
-                  <th>Forfait</th>
-                  <th>Date</th>
-                  <th>Voir QRcode</th>
-                </tr>
-                {purchaseResume.map((purchase, index) => (
-                  <tr key={purchase.resume.id}>
-                    <td>{purchase.resume.movieName}</td>
-                    <td>{purchase.resume.price}</td>
-                    <td>{purchase.resume.priceType}</td>
-                    <td>{purchase.resume.date}</td>
-                    <td>Detail</td>
+                <thead>
+                  <tr>
+                    <th>Films</th>
+                    <th>Prix</th>
+                    <th>Forfait</th>
+                    <th>Date</th>
+                    <th>Voir le QR Code</th>
                   </tr>
-                ))}
+                </thead>
+                <tbody>
+                  {purchaseResume.map((purchase, index) => (
+                    <tr key={purchase.resume.purchaseId}>
+                      <td>{purchase.resume.movieName}</td>
+                      <td>{purchase.resume.price}</td>
+                      <td>{purchase.resume.priceType}</td>
+                      <td>{purchase.resume.date}</td>
+                      <td id={purchase.resume.purchaseId} onClick={openModal}><i className="ri-qr-code-line"></i></td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
+              <Modal
+                style={{
+                  overlay: {
+                    zIndex: 101
+                  }
+                }}
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Modal de QR Code"
+              >
+                <QRCodeModal data={selectedPurchase} closeModal={closeModal} />
+              </Modal>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
-
-export default Profile;
+};

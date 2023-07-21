@@ -152,7 +152,6 @@ body:has(.account-body) {
 }
 
 .tab {
-  display: none;
   padding: 20px;
   width: 100%;
   text-align: center;
