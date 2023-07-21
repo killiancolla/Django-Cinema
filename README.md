@@ -9,4 +9,6 @@ Pour executer le client ReactJS il faut faire les commandes suivantes :
 `npm start`
 
 Pour executer le serveur Django il faut faire les commandes suivantes : 
+`python manage.py makemigrations`
+`python manage.py migrate`
 `python manage.py runserver`
