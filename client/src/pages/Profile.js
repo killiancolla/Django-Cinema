@@ -8,7 +8,7 @@ function Profile({ setTest }) {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
   const [user] = useState(JSON.parse(localStorage.getItem("userInfo")));
-  const [purchaseResume, setPurchaseResume] = useState();
+  const [purchaseResume, setPurchaseResume] = useState([]);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -28,7 +28,7 @@ function Profile({ setTest }) {
     };
 
     tabs(activeTab);
-  }, [activeTab])
+  }, [activeTab]);
 
   useEffect(() => {
     const fetchPurchasesData = async () => {
@@ -53,10 +53,16 @@ function Profile({ setTest }) {
             `http://127.0.0.1:8000/prices/${seance.priceId}`
           );
 
+          const resume = {
+            purchaseId: seance.id,
+            date: seance.timestamp,
+            movieName: movieResponse.data.name,
+            price: pricesResponse.data.price,
+            priceType: pricesResponse.data.name,
+          };
+
           return {
-            sessions: sessionsResponse.data,
-            movies: movieResponse.data,
-            price: pricesResponse.data,
+            resume,
           };
         })
       );
@@ -101,7 +107,9 @@ function Profile({ setTest }) {
           </div>
         </div>
         <div className="profile-nav-button">
-          <button className="delete-button" onClick={deleteAccount}>Supprimer le compte</button>
+          <button className="delete-button" onClick={deleteAccount}>
+            Supprimer le compte
+          </button>
         </div>
       </div>
 
@@ -134,9 +142,25 @@ function Profile({ setTest }) {
             </div>
             <div className="profile-reviews tab">
               <h1>Historiques achat</h1>
-              <table></table>
-
-              <p>histo</p>
+              {/* <Historique /> */}
+              <table>
+                <tr>
+                  <th>Films</th>
+                  <th>Prix</th>
+                  <th>Forfait</th>
+                  <th>Date</th>
+                  <th>Voir QRcode</th>
+                </tr>
+                {purchaseResume.map((purchase, index) => (
+                  <tr key={purchase.resume.id}>
+                    <td>{purchase.resume.movieName}</td>
+                    <td>{purchase.resume.price}</td>
+                    <td>{purchase.resume.priceType}</td>
+                    <td>{purchase.resume.date}</td>
+                    <td>Detail</td>
+                  </tr>
+                ))}
+              </table>
             </div>
           </div>
         </div>

@@ -140,7 +140,8 @@ body:has(.account-body) {
   text-align: center;
   transition: all 0.2s ease-in-out;
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     box-shadow: 0px -3px 0px rgba(288, 0, 70, 0.9) inset;
   }
 }
@@ -233,4 +234,21 @@ body:has(.account-body) {
   .profile-nav-info .address {
     justify-content: center;
   }
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
