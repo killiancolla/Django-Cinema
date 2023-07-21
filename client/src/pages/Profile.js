@@ -18,6 +18,7 @@ function Profile({ setTest }) {
     $(".nave ul li").on("click", function () {
       $(this).addClass("active").siblings().removeClass("active");
     });
+
     const tab = document.querySelectorAll(".tab");
     const tabs = (activeTab) => {
       tab.forEach(function (node) {
@@ -25,8 +26,11 @@ function Profile({ setTest }) {
       });
       tab[activeTab].style.display = "block";
     };
-    tabs(activeTab);
 
+    tabs(activeTab);
+  }, [activeTab])
+
+  useEffect(() => {
     const fetchPurchasesData = async () => {
       const purchasesResponse = await axios.get(
         `http://127.0.0.1:8000/purchases/`
