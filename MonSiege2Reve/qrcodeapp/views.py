@@ -22,7 +22,7 @@ def generate_qr_code(request):
 
             # Enregistre le QR Code avec l'ID de l'achat comme nom
             qr_code_filename = f"{purchase_id}.png"
-            qr_code_image.save(os.path.join("../media/" + qr_code_filename))
+            qr_code_image.save(os.path.join("../client/public/media/" + qr_code_filename))
 
             qr_code_url = f"/media/qr_codes/{qr_code_filename}"
 

@@ -2,6 +2,6 @@ __pycache__
 
 node_modules
 
-media/*.png
+client/public/media/*.png
 
 db.sqlite3
