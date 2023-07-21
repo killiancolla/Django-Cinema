@@ -58,6 +58,12 @@ class IsGetOrIsAuthenticated(permissions.BasePermission):
             return True
         return request.user and request.user.is_authenticated
 
+class UserViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
 class RoomViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsGetOrIsAuthenticated]

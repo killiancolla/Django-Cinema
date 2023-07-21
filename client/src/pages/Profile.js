@@ -67,8 +67,14 @@ export default function Profile({ setTest }) {
 
   const deleteAccount = async () => {
     try {
-      // TODO: Route de suppression
-      // await axios.delete(`http://127.0.0.1:8000/${user.id}`);
+      const desac = {
+        is_active: false
+      }
+      await axios.patch(`http://127.0.0.1:8000/users/${user.id}/`, desac, {
+        headers: {
+          Authorization: `token ${user.token}`,
+        }
+      });
 
       localStorage.removeItem("userInfo");
       setTest(localStorage.getItem("userInfo"));
