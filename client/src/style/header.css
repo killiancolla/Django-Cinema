@@ -90,6 +90,10 @@
 .active-link,
 .active {
   color: var(--title-color);
+
+  &:has(i.ri-logout-box-line):not(:hover) {
+    color: var(--text-color-light);
+  }
 }
 
 @media screen and (max-width: 340px) {

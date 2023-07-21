@@ -79,8 +79,8 @@ export default function Header({ test, setTest }) {
               </li>
             ) : (
               <li className="nav__item">
-                <NavLink activeClassName="active-link" onClick={loagout} to="/" className="nav__link">
-                  <i className="ri-account-circle-line"></i> Logout
+                <NavLink onClick={loagout} to="/" className="nav__link">
+                  <i className="ri-logout-box-line"></i> Logout
                 </NavLink>
               </li>
             )}
