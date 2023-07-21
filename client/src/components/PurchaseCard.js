@@ -69,7 +69,6 @@ export default function PurchaseCard({ data, closeModal }) {
 
   const handleConfirm = (e) => {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(userInfo);
     Object.entries(placeData).map(([key, value]) => {
       for (let index = 0; index < value; index++) {
         const purchase = {
@@ -84,9 +83,18 @@ export default function PurchaseCard({ data, closeModal }) {
           },
         })
           .then(res => {
+            const qrcode = {
+              purchase_id: res.data.id,
+              session_name: film.filmname,
+              room_name: film.room_name,
+              ticket_type: tarifs.filter(tarif => tarif.id == key)[0].name,
+              timestamp: res.data.timestamp
+            }
+            return axios.post('http://127.0.0.1:8000/qrcodeapp/generate_qr_code', qrcode);
+          })
+          .then(res => {
             console.log(res.data);
           });
-
       }
     })
   };
