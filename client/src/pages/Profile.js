@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import "../style/profile.css";
 import $ from "jquery";
+import axios from "axios";
 
 function Profile() {
   const [activeTab, setActiveTab] = useState(0);
+  const [user] = useState(JSON.parse(localStorage.getItem("userInfo")));
+  const [purchaseResume, setPurchaseResume] = useState();
 
-  const [user] = useState(
-    JSON.parse(localStorage.getItem("userInfo"))
-  );
-
-  console.log(user);
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
@@ -18,20 +16,49 @@ function Profile() {
     $(".nave ul li").on("click", function () {
       $(this).addClass("active").siblings().removeClass("active");
     });
-
     const tab = document.querySelectorAll(".tab");
-
     const tabs = (activeTab) => {
       tab.forEach(function (node) {
         node.style.display = "none";
       });
-
       tab[activeTab].style.display = "block";
     };
-
     tabs(activeTab);
-  });
 
+    const fetchPurchasesData = async () => {
+      const purchasesResponse = await axios.get(
+        `http://127.0.0.1:8000/purchases/`
+      );
+
+      const purchases = purchasesResponse.data.filter(
+        (purchase) => purchase.userId === parseInt(user.id)
+      );
+
+      const updatedSeances = await Promise.all(
+        purchases.map(async (seance) => {
+          const sessionsResponse = await axios.get(
+            `http://127.0.0.1:8000/sessions/${seance.sessionId}`
+          );
+          const movieResponse = await axios.get(
+            `http://127.0.0.1:8000/movies/${sessionsResponse.data.filmId}`
+          );
+
+          const pricesResponse = await axios.get(
+            `http://127.0.0.1:8000/prices/${seance.priceId}`
+          );
+
+          return {
+            sessions: sessionsResponse.data,
+            movies: movieResponse.data,
+            price: pricesResponse.data,
+          };
+        })
+      );
+      setPurchaseResume(updatedSeances);
+    };
+    fetchPurchasesData();
+  }, []);
+  console.log(purchaseResume);
   return (
     <div className="account-body">
       <div className="profile-header">
@@ -91,6 +118,8 @@ function Profile() {
             </div>
             <div className="profile-reviews tab">
               <h1>Historiques achat</h1>
+              <table></table>
+
               <p>histo</p>
             </div>
           </div>
