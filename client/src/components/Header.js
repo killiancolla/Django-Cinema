@@ -44,7 +44,7 @@ export default function Header({ test, setTest }) {
         >
           <ul className="nav__list grid">
             <li className="nav__item">
-              <NavLink exact activeClassName="active-link" onClick={closeMenu} to="/" className="nav__link">
+              <NavLink activeClassName="active-link" onClick={closeMenu} to="/" className="nav__link">
                 <i className="ri-coupon-2-line"></i> Séances
               </NavLink>
             </li>
