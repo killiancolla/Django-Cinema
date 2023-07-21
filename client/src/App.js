@@ -20,7 +20,7 @@ export default function App() {
             path="/inscription"
             element={<Inscription setTest={setTest} />}
           />
-          <Route path="/account" element={<Profile />} />
+          <Route path="/account" element={<Profile setTest={setTest} /> } />
           <Route path="/seance/:id" element={<Seance />} />
         </Routes>
       </main>

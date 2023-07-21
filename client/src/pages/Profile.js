@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../style/profile.css";
 import $ from "jquery";
 import axios from "axios";
 
-function Profile() {
+function Profile({ setTest }) {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
   const [user] = useState(JSON.parse(localStorage.getItem("userInfo")));
   const [purchaseResume, setPurchaseResume] = useState();
@@ -59,6 +62,20 @@ function Profile() {
     fetchPurchasesData();
   }, []);
   console.log(purchaseResume);
+
+  const deleteAccount = async () => {
+    try {
+      // TODO: Route de suppression
+      // await axios.delete(`http://127.0.0.1:8000/${user.id}`);
+
+      localStorage.removeItem("userInfo");
+      setTest(localStorage.getItem("userInfo"));
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="account-body">
       <div className="profile-header">
@@ -80,21 +97,17 @@ function Profile() {
             </span>
           </div>
         </div>
+        <div className="profile-nav-button">
+          <button className="delete-button" onClick={deleteAccount}>Supprimer le compte</button>
+        </div>
       </div>
 
       <div className="main-bd">
         <div className="left-side">
           <div className="profile-side">
             <p className="user-mail">
-              <i className="fa fa-envelope"></i> {user.email}
+              <i className="ri-mail-line"></i> {user.email}
             </p>
-            <div className="user-bio">
-              <h3>Bio</h3>
-              <p className="bio">
-                Lorem ipsum dolor sit amet, hello how consectetur adipisicing
-                elit.
-              </p>
-            </div>
           </div>
         </div>
         <div className="right-side">

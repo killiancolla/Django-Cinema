@@ -65,6 +65,29 @@ body:has(.account-body) {
   margin-right: 5px;
 }
 
+.profile-nav-button {
+  position: absolute;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 9rem 0 0 0;
+}
+
+.delete-button {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: #7b00ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #5600b3;
+  }
+}
+
 .main-bd {
   width: 100%;
   display: flex;
@@ -90,6 +113,10 @@ body:has(.account-body) {
 .profile-side p i {
   color: #e40046;
   margin-right: 10px;
+}
+
+.right-side {
+  width: calc(100dvw - 310px - 100px);
 }
 
 .nave {
@@ -181,9 +208,19 @@ body:has(.account-body) {
     text-align: center;
   }
 
+  .profile-nav-button {
+    position: unset;
+    display: block;
+    padding: 0;
+  }
+
   .main-bd {
     flex-direction: column;
     padding-right: 0;
+  }
+
+  .right-side {
+    width: 100dvw;
   }
 
   .profile-side {
