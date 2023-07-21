@@ -105,16 +105,16 @@ export default function PurchaseCard({ data, closeModal }) {
 
       <div className="purchase-card-body">
         {tarifs.map((tarif, index) => (
-          <div key={tarif.id} class="line">
+          <div key={tarif.id} className="line">
             <p>
               {tarif.name}
-              <span class="tarif-price">
+              <span className="tarif-price">
                 {tarif.price.toFixed(2)} €
               </span>
             </p>
-            <input type="button" class="place-minus" id={`minus_tarif_${tarif.id}`} value="−" onClick={minusPlaces} />
-            <input type="number" class="place-nb vide" name={`tarif[${tarif.id}]`} id={`tarif_${tarif.id}`} value={placeData[tarif.id]} min="0" step="1" readOnly />
-            <input type="button" class="place-add" id={`add_tarif_${tarif.id}`} value="+" onClick={addPlaces} />
+            <input type="button" className="place-minus" id={`minus_tarif_${tarif.id}`} value="−" onClick={minusPlaces} />
+            <input type="number" className="place-nb vide" name={`tarif[${tarif.id}]`} id={`tarif_${tarif.id}`} value={placeData[tarif.id]} min="0" step="1" readOnly />
+            <input type="button" className="place-add" id={`add_tarif_${tarif.id}`} value="+" onClick={addPlaces} />
           </div>
         ))}
       </div>

@@ -45,13 +45,13 @@ export default function Header({ test, setTest }) {
           <ul className="nav__list grid">
             <li className="nav__item">
               <Link onClick={closeMenu} to="/" className="nav__link">
-                <i class="ri-coupon-2-line"></i> Séances
+                <i className="ri-coupon-2-line"></i> Séances
               </Link>
             </li>
             {test !== null && (
               <li className="nav__item">
                 <Link onClick={closeMenu} to="/account" className="nav__link">
-                  <i class="ri-account-circle-line"></i> Mon compte
+                  <i className="ri-account-circle-line"></i> Mon compte
                 </Link>
               </li>
             )}
@@ -63,7 +63,7 @@ export default function Header({ test, setTest }) {
                   target="_blank"
                   className="nav__link"
                 >
-                  <i class="ri-settings-2-line"></i> Administration
+                  <i className="ri-settings-2-line"></i> Administration
                 </Link>
               </li>
             )}
@@ -74,13 +74,13 @@ export default function Header({ test, setTest }) {
                   to="/inscription"
                   className="nav__link"
                 >
-                  <i class="ri-account-circle-line"></i> Inscription
+                  <i className="ri-account-circle-line"></i> Inscription
                 </Link>
               </li>
             ) : (
               <li className="nav__item">
                 <Link onClick={loagout} to="/" className="nav__link">
-                  <i class="ri-account-circle-line"></i> Logout
+                  <i className="ri-account-circle-line"></i> Logout
                 </Link>
               </li>
             )}
