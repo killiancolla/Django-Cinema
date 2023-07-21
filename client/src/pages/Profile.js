@@ -138,10 +138,10 @@ export default function Profile({ setTest }) {
                   {purchaseResume.map((purchase, index) => (
                     <tr key={purchase.resume.purchaseId}>
                       <td>{purchase.resume.movieName}</td>
-                      <td>{purchase.resume.price}</td>
+                      <td>{purchase.resume.price.toFixed(2)} €</td>
                       <td>{purchase.resume.priceType}</td>
                       <td>{purchase.resume.date}</td>
-                      <td id={purchase.resume.purchaseId} onClick={openModal}><i className="ri-qr-code-line"></i></td>
+                      <td id={purchase.resume.purchaseId} onClick={openModal}><i id={purchase.resume.purchaseId} className="ri-qr-code-line"></i></td>
                     </tr>
                   ))}
                 </tbody>
