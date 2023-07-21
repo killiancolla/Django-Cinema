@@ -2,17 +2,46 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import "../style/Seance.css";
+import Modal from "react-modal";
+import PurchaseCard from "../components/PurchaseCard";
+
+Modal.setAppElement('#root')
+
+// Film name, room name, timestamp 
 
 export default function Seance() {
   const { id } = useParams();
   const [seances, setSeances] = useState([]);
   const [film, setFilm] = useState();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedSeance, setSelectedSeance] = useState(null);
+  const [nbPlace, setNbPlace] = useState(1)
+  const [places, setPlaces] = useState([])
+  const [prices, setPrices] = useState([])
+
+  const openModal = (seance) => {
+    setSelectedSeance(seance);
+    setSelectedSeance({
+      ...seance,
+      timestamp: new Date(seance.timestamp).toLocaleString("fr-FR", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      filmname: film.name
+    });
+    setModalIsOpen(true);
+  }
+
+  const closeModal = () => {
+    setSelectedSeance(null);
+    setModalIsOpen(false);
+  }
 
   useEffect(() => {
     const fetchPurchasesData = async () => {
       try {
         const filmResponse = await axios.get(`http://127.0.0.1:8000/movies/${id}`);
         setFilm(filmResponse.data);
+
+        const pricesResponse = await axios.get(`http://127.0.0.1:8000/prices/`);
+        setPrices(pricesResponse.data);
 
         const seanceResponse = await axios.get(`http://127.0.0.1:8000/sessions/`);
         const filteredSeances = seanceResponse.data.filter(seance => seance.filmId === parseInt(id));
@@ -26,7 +55,8 @@ export default function Seance() {
               return purchase.sessionId === seance.id ? total + purchase.quantity : total;
             }, 0);
             const placesLeft = roomResponse.data.nbPlaces - totalPurchased;
-            return { ...seance, placesLeft };
+            const room_name = roomResponse.data.name;
+            return { ...seance, placesLeft, room_name };
           })
         );
 
@@ -45,29 +75,42 @@ export default function Seance() {
       <div className="card">
         {seances.length > 0 ? (
           <>
-              <img src={film.image} alt={film.name} className="card-img" />
-              <div className="card-content">
-                <h2 className="card-title">{film.name}</h2>
-                <p className="card-realisateur">{film.realisator}</p>
-                <p className="card-duration">Durée : {film.duration} minutes</p>
-                <p className="card-year">Année de sortie : {film.year}</p>
-                <p className="card-synopsis">{film.synopsis}</p>
+            <img src={film.image} alt={film.name} className="card-img" />
+            <div className="card-content">
+              <h2 className="card-title">{film.name}</h2>
+              <p className="card-realisateur">{film.realisator}</p>
+              <p className="card-duration">Durée : {film.duration} minutes</p>
+              <p className="card-year">Année de sortie : {film.year}</p>
+              <p className="card-synopsis">{film.synopsis}</p>
 
-                {seances.map(seance => (
-                  <div className="seance" key={seance.id}>
-                    <p>Horaire : {new Date(seance.timestamp).toLocaleString("fr-FR", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                    <p>Langue : {seance.language}</p>
-                    <p>Places restantes : {seance.placesLeft}</p>
-                    <button className="btn-reserve">Réserver</button>
-                  </div>
-                ))}
-              </div>
+              {seances.map(seance => (
+                <div className="seance" key={seance.id}>
+                  <p>Horaire : {new Date(seance.timestamp).toLocaleString("fr-FR", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                  <p>Langue : {seance.language}</p>
+                  <p>Places restantes : {seance.placesLeft}</p>
+                  <button className="btn-reserve" onClick={() => openModal(seance)}>Réserver</button>
+                </div>
+              ))}
+            </div>
+            <Modal
+              style={{
+                overlay: {
+                  zIndex: 101,
+                }
+              }}
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Modal de réservation"
+            >
+              <PurchaseCard data={selectedSeance} />
+              <button onClick={closeModal}>Fermer</button>
+            </Modal>
           </>
         ) : (
           <>
             <div>Loading...</div>
           </>
-        ) }
+        )}
       </div>
     </div>
   );

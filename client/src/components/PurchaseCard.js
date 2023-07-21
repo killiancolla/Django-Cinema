@@ -13,14 +13,14 @@ export default function PurchaseCard(data) {
     const fetchTarifData = async () => {
       try {
         const tarifResponse = await axios.get("http://127.0.0.1:8000/prices");
-        setTarifs(tarifResponse.data);
+        setTarifs(tarifResponse.data.filter(tarif => tarif.isSpecial == data.data.isSpecial));
       } catch (error) {
         console.error("Failed to fetch tarif data:", error);
       }
     }
 
     fetchTarifData();
-    setFilm(data.film);
+    setFilm(data.data);
   }, [data]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function PurchaseCard(data) {
   }, [tarifs])
 
   const addPlaces = (e) => {
-    const targetTarif= e.target.id.slice(10);
+    const targetTarif = e.target.id.slice(10);
 
     // TODO: Vérification par rapport au nombre de place maximal
     if (placeSelected === 9) {
@@ -64,11 +64,29 @@ export default function PurchaseCard(data) {
     });
   };
 
+  const handleConfirm = (e) => {
+    Object.entries(placeData).map(([key, value]) => {
+      for (let index = 0; index < value; index++) {
+        const purchase = {
+          userId: 3,
+          sessionId: film.id,
+          priceId: key
+        };
+
+        axios.post('http://127.0.0.1:8000/purchases/', purchase)
+          .then(res => {
+            console.log(res.data);
+          });
+
+      }
+    })
+  };
+
   return (
     <div className="purchase-card">
       <div className="purchase-card-header">
         <div className="first-line">
-          <b className="title">{film.film_name}</b>
+          <b className="title">{film.filmname}</b>
           <div className="session-details">
             {film.room_name} - {film.timestamp}
           </div>
@@ -91,10 +109,11 @@ export default function PurchaseCard(data) {
             </p>
             <input type="button" class="place-minus" id={`minus_tarif_${tarif.id}`} value="−" onClick={minusPlaces} />
             <input type="number" class="place-nb vide" name={`tarif[${tarif.id}]`} id={`tarif_${tarif.id}`} value={placeData[tarif.id]} min="0" step="1" readOnly />
-            <input type="button" class="place-add" id={`add_tarif_${tarif.id}`}  value="+" onClick={addPlaces} />
+            <input type="button" class="place-add" id={`add_tarif_${tarif.id}`} value="+" onClick={addPlaces} />
           </div>
         ))}
       </div>
+      <button onClick={handleConfirm}>Confirmer</button>
     </div>
   );
 };
