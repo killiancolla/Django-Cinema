@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../style/profile.css";
 import $ from "jquery";
-import axios from "axios";
 
 function Profile({ setTest }) {
   const navigate = useNavigate();
